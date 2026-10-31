@@ -18,14 +18,11 @@
     box-sizing: border-box;
 }
 
-body, html {
-    overflow-x: hidden; /* Жестко отрезаем всё, что вылезает за экран справа */
-    max-width: 100%;
-    /* Заставляем длинный текст переноситься на новую строку */
-    word-wrap: break-word; 
-    overflow-wrap: break-word;
+/* 1. Глобальный блок горизонтального скролла */
+html, body {
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
 }
-
 img {
     max-width: 100%;
     height: auto;
@@ -336,19 +333,15 @@ main {
 }
 
 .product-img {
-    width: 100%;
-    height: 380px;
-    background: var(--surface-color);
-    object-fit: cover;
-    margin-bottom: 15px;
-    transition: opacity 0.4s ease;
-}
-
-.product-info {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    text-align: left;
+        max-width: 100% !important;
+        height: auto !important;
+        object-fit: contain !important;
+    }
+    
+    .product-info {
+        padding: 10px 15px !important;
+        box-sizing: border-box !important;
+    }
 }
 
 .product-title {
@@ -654,17 +647,38 @@ footer {
         font-size: 14px;
     }
 
-    .btn-primary {
-        padding: 10px;
-        font-size: 12px;
-        width: 100%; /* Кнопка во всю ширину карточки */
+    .btn-primary, 
+    button[onclick*="addToCart"] {
+        background-color: #fff !important;
+        color: #000 !important; /* Черный текст на белом фоне */
+        font-weight: 700 !important;
+        width: 100% !important;
+        padding: 16px !important;
+        text-align: center !important;
+        border-radius: 4px !important;
+        font-size: 14px !important;
+        display: block !important;
+        border: none !important;
     }
 
     /* 3. Каталог */
     .catalog-header {
-        flex-direction: column;
+        flex-direction: column !important;
         align-items: flex-start !important;
-        gap: 15px;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .catalog-header div, 
+    .brand-buttons-scroll,
+    .filter-menu,
+    .catalog-filters {
+        display: flex !important;
+        flex-wrap: wrap !important; /* Ключевое свойство для переноса */
+        gap: 15px !important;
+        width: 100% !important;
+        white-space: normal !important;
+        overflow: visible !important;
     }
     
     .section-title {
