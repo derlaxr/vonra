@@ -34,10 +34,11 @@ img {
 }
 
 body {
-    background-image: url('IMG/fon.jpg'); /* Проверь правильность пути к картинке */
+    /* Точка и слэш гарантируют поиск картинки внутри текущей папки проекта */
+    background-image: url('./IMG/fon.jpg'); 
     background-size: cover;
     background-position: center;
-    background-attachment: fixed; /* Намертво прибивает фон к экрану */
+    background-attachment: fixed;
     background-repeat: no-repeat;
     color: var(--text-color, #fff);
     margin: 0;
