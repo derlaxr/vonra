@@ -34,7 +34,7 @@ img {
 }
 
 body {
-    background-image: url('img/fon.jpg'); /* Проверь правильность пути к картинке */
+    background-image: url('IMG/fon.jpg'); /* Проверь правильность пути к картинке */
     background-size: cover;
     background-position: center;
     background-attachment: fixed; /* Намертво прибивает фон к экрану */
