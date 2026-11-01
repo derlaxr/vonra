@@ -1,4 +1,4 @@
-// ВАЖНО: Все ID теперь уникальные (от 1 до 16). Никаких дублей.
+// База товаров (ID строго уникальные)
 const products = [
     { id: 1, name: "Nike Air Force 1", price: 8000, brand: 'Nike', isHit: true, img: "./IMG/eeef.jpg" },
     { id: 2, name: "Nike dunk low", price: 5000, brand: 'Nike', isHit: false, img: "./IMG/item-31137770-f21d-4eba-8e07-592000220c99.jpg" },
@@ -24,7 +24,7 @@ const products = [
 let cart = JSON.parse(localStorage.getItem('vonra_cart')) || [];
 let currentSelectedSize = '40'; 
 
-// СКРЫТИЕ ШАПКИ ПРИ СКРОЛЛЕ ВНИЗ
+// Скрытие шапки
 let lastScrollTop = 0;
 const header = document.getElementById('main-header');
 
@@ -38,13 +38,12 @@ window.addEventListener('scroll', () => {
     lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
 });
 
-// НАВИГАЦИЯ (SPA)
+// Навигация
 function navigate(pageId) {
     document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
     document.getElementById(`page-${pageId}`).classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
     
-    // Закрываем мобильное меню при переходе, если оно открыто
     const mobileNav = document.getElementById('mobile-nav');
     if (mobileNav.classList.contains('active')) {
         toggleMobileMenu();
@@ -55,7 +54,7 @@ function toggleMobileMenu() {
     document.getElementById('mobile-nav').classList.toggle('active');
 }
 
-// ОТРИСОВКА ТОВАРОВ
+// Рендер сетки товаров
 function renderGrid(containerId, filterBrand = 'all', onlyHits = false) {
     const container = document.getElementById(containerId);
     if (!container) return;
@@ -71,12 +70,11 @@ function renderGrid(containerId, filterBrand = 'all', onlyHits = false) {
     }
 
     if (filtered.length === 0) {
-        container.innerHTML = '<p style="color: #666;">Товаров не найдено</p>';
+        container.innerHTML = '<p style="color: #666; grid-column: 1 / -1;">Товаров не найдено</p>';
         return;
     }
 
     filtered.forEach(p => {
-        // Обертка product-title-wrapper нужна для свайпа длинных названий
         container.innerHTML += `
             <div class="product-card" onclick="openProduct(${p.id})">
                 <img src="${p.img}" class="product-img" alt="${p.name}" loading="lazy">
@@ -91,11 +89,10 @@ function renderGrid(containerId, filterBrand = 'all', onlyHits = false) {
     });
 }
 
-// ФИЛЬТРАЦИЯ КАТАЛОГА
+// Фильтрация каталога
 function filterCatalog(brand, btnElement) {
     navigate('catalog');
     
-    // Обновляем активную кнопку
     document.querySelectorAll('.catalog-filters .filter-btn').forEach(btn => {
         btn.classList.remove('active');
     });
@@ -104,7 +101,7 @@ function filterCatalog(brand, btnElement) {
     renderGrid('catalog-products', brand);
 }
 
-// СТРАНИЦА ТОВАРА
+// Страница товара
 function openProduct(id) {
     const p = products.find(item => item.id === id);
     if (!p) return;
@@ -146,7 +143,7 @@ function selectSize(size) {
     });
 }
 
-// КОРЗИНА
+// Корзина
 function addToCart(id) {
     const p = products.find(item => item.id === id);
     const cartKey = `${id}-${currentSelectedSize}`;
@@ -160,7 +157,6 @@ function addToCart(id) {
     
     saveCart();
     
-    // Визуальный отклик на кнопке
     const btn = document.querySelector('.product-details .btn-primary');
     if (btn) {
         const originalText = btn.innerText;
@@ -232,7 +228,7 @@ function renderCart() {
     totalEl.innerText = `${total.toLocaleString()} ₽`;
 }
 
-// КАРУСЕЛЬ БРЕНДОВ (ГЛАВНАЯ)
+// Карусель брендов
 let isAnimating = false;
 function scrollBrands(direction) {
     if (isAnimating) return;
@@ -243,7 +239,7 @@ function scrollBrands(direction) {
 
     const firstItem = container.firstElementChild;
     const lastItem = container.lastElementChild;
-    const itemWidth = firstItem.offsetWidth + 10; // 10px это gap
+    const itemWidth = firstItem.offsetWidth + 10;
 
     if (direction === 'right') {
         container.style.transition = 'transform 0.3s ease-in-out';
@@ -268,10 +264,9 @@ function scrollBrands(direction) {
     }
 }
 
-// ЗАПУСК ПРИ ЗАГРУЗКЕ
+// Инициализация
 document.addEventListener('DOMContentLoaded', () => {
-    // Рендерим товары
-    renderGrid('home-products', 'all', true); // Только хиты на главной
-    renderGrid('catalog-products', 'all'); // Все в каталоге
+    renderGrid('home-products', 'all', true);
+    renderGrid('catalog-products', 'all');
     renderCart();
 });
