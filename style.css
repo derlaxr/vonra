@@ -255,26 +255,25 @@ main {
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 40px 20px;
     margin-bottom: 80px;
+    width: 100%;
 }
 
 .product-card {
     background: transparent;
     cursor: pointer;
     transition: transform 0.4s ease;
-    min-width: 0;                 /* критично для grid-элементов */
+    min-width: 0;
+    width: 100%;
+    overflow: hidden; /* Защита от вылезания */
 }
 
 .product-card:hover {
     transform: translateY(-8px);
 }
 
-.product-card:hover .product-img {
-    opacity: 0.85;
-}
-
 .product-img {
     width: 100%;
-    aspect-ratio: 3 / 4;           /* вместо фикс. height: 380px */
+    aspect-ratio: 3 / 4;
     height: auto;
     background: var(--surface-color);
     object-fit: cover;
@@ -288,16 +287,29 @@ main {
     gap: 8px;
     text-align: left;
     min-width: 0;
+    width: 100%;
+}
+
+/* --- СКРОЛЛ НАЗВАНИЙ ТОВАРОВ --- */
+.product-title-wrapper {
+    width: 100%;
+    overflow-x: auto; /* Разрешаем горизонтальный скролл */
+    white-space: nowrap; /* Запрещаем перенос строк */
+    -webkit-overflow-scrolling: touch; /* Плавный скролл на iOS */
+    scrollbar-width: none; /* Скрываем скроллбар в Firefox */
+    padding-bottom: 2px; /* Чтобы буквы не обрезались снизу */
+}
+.product-title-wrapper::-webkit-scrollbar {
+    display: none; /* Скрываем скроллбар в Chrome/Safari */
 }
 
 .product-title {
+    display: inline-block;
     font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 1px;
     color: var(--text-muted);
-    line-height: 1.4;
-    word-break: break-word;
-    overflow-wrap: break-word;
+    white-space: nowrap; /* Текст всегда в одну строку */
 }
 
 .product-price {
@@ -305,96 +317,15 @@ main {
     font-weight: 600;
 }
 
-/* ========== ФИЛЬТРЫ КАТАЛОГА ========== */
-.catalog-filters {
-    display: flex;
-    gap: 30px;
-    margin-bottom: 40px;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 15px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-}
-
-.catalog-filters::-webkit-scrollbar {
-    display: none;
-}
-
-.filter-btn {
-    background: none;
-    border: none;
-    color: var(--text-muted);
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    cursor: pointer;
-    transition: color 0.3s;
-    white-space: nowrap;
-    flex-shrink: 0;
-}
-
-.filter-btn.active,
-.filter-btn:hover {
-    color: var(--text-color);
-}
-
-/* ========== АНИМАЦИИ ========== */
-.fade-in {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1),
-                transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-.fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* ========== КНОПКИ И ПОЛЯ ========== */
-.btn-primary {
-    background: var(--text-color);
-    color: var(--bg-color);
-    border: none;
-    padding: 16px 30px;
-    font-weight: 600;
-    font-size: 12px;
-    letter-spacing: 2px;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: background 0.3s, color 0.3s;
-}
-
-.btn-primary:hover {
-    background: #cccccc;
-}
-
-.w-100 { width: 100%; }
-
-.input-field {
-    width: 100%;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid var(--border-color);
-    color: var(--text-color);
-    padding: 15px 0;
-    margin-bottom: 25px;
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.3s;
-}
-
-.input-field:focus {
-    border-bottom-color: var(--text-color);
-}
-
-/* ========== КАРТОЧКА ТОВАРА ========== */
+/* ========== ДЕТАЛЬНАЯ СТРАНИЦА ТОВАРА ========== */
 .product-view {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 60px;
     margin-bottom: 80px;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden; /* Жестко прячем всё, что вылезает */
 }
 
 .product-view-img {
@@ -403,11 +334,16 @@ main {
     height: auto;
     background: var(--surface-color);
     object-fit: cover;
+    border-radius: 4px;
 }
 
 .product-details {
     padding-top: 20px;
-    min-width: 0;
+    min-width: 0; /* Важно для Grid */
+    width: 100%;
+    max-width: 100%;
+    text-align: left; /* Принудительно выравниваем текст влево */
+    box-sizing: border-box;
 }
 
 .product-details h1 {
@@ -416,7 +352,7 @@ main {
     letter-spacing: 2px;
     margin-bottom: 15px;
     text-transform: uppercase;
-    word-break: break-word;
+    word-break: break-word; /* Перенос длинных слов */
 }
 
 .product-details .price {
@@ -425,12 +361,14 @@ main {
     margin-bottom: 25px;
 }
 
-/* ВАЖНО: разрешаем перенос кнопок размера */
+/* ВАЖНО: Размеры теперь идеально переносятся */
 .size-options {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     margin-bottom: 40px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .size-btn {
@@ -438,14 +376,15 @@ main {
     border: 1px solid var(--border-color);
     color: var(--text-muted);
     padding: 12px 0;
-    width: 55px;
+    flex: 1 1 calc(25% - 10px); /* 4 кнопки в ряд максимум */
+    min-width: 50px;
     text-align: center;
     font-size: 12px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
     text-transform: uppercase;
-    flex-shrink: 0;
+    box-sizing: border-box;
 }
 
 .size-btn:hover {
