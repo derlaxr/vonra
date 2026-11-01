@@ -2,25 +2,26 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Vonra — магазин кроссовок</title>
-    <!-- Вот эта строка отвечает за иконку сайта -->
     <link rel="icon" href="./IMG/LOGO.jpg" type="image/jpeg">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Шапка -->
+    <!-- ШАПКА -->
     <header id="main-header">
         <div class="container header-inner">
             <div class="logo" onclick="navigate('home')">VONRA</div>
+            
             <nav class="desktop-nav">
-                <a href="#" onclick="navigate('catalog')">Каталог</a>
-                <a href="#" onclick="navigate('delivery')">Доставка</a>
-                <a href="#" onclick="navigate('about')">О компании</a>
-                <a href="#" onclick="navigate('contact')">Контакты</a>
+                <a href="#" onclick="navigate('catalog'); return false;">Каталог</a>
+                <a href="#" onclick="navigate('delivery'); return false;">Доставка</a>
+                <a href="#" onclick="navigate('about'); return false;">О компании</a>
+                <a href="#" onclick="navigate('contact'); return false;">Контакты</a>
             </nav>
+
             <div class="header-actions">
                 <div class="cart-btn desktop-cart" onclick="navigate('cart')">
                     Корзина (<span id="cart-count">0</span>)
@@ -28,147 +29,82 @@
                 <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
             </div>
         </div>
-        <!-- Мобильное меню -->
+
+        <!-- МОБИЛЬНОЕ МЕНЮ -->
         <div class="mobile-nav" id="mobile-nav">
-            <a href="#" onclick="navigate('catalog'); toggleMobileMenu()">Каталог</a>
-            <a href="#" onclick="navigate('delivery'); toggleMobileMenu()">Доставка</a>
-            <a href="#" onclick="navigate('about'); toggleMobileMenu()">О компании</a>
-            <a href="#" onclick="navigate('contact'); toggleMobileMenu()">Контакты</a>
-            <a href="#" onclick="navigate('cart'); toggleMobileMenu()" style="border-top: 1px solid #333; margin-top: 10px; color: #fff; font-weight: 600;">
+            <a href="#" onclick="navigate('catalog'); toggleMobileMenu(); return false;">Каталог</a>
+            <a href="#" onclick="navigate('delivery'); toggleMobileMenu(); return false;">Доставка</a>
+            <a href="#" onclick="navigate('about'); toggleMobileMenu(); return false;">О компании</a>
+            <a href="#" onclick="navigate('contact'); toggleMobileMenu(); return false;">Контакты</a>
+            <a href="#" onclick="navigate('cart'); toggleMobileMenu(); return false;" class="mobile-cart-link">
                 Корзина (<span id="cart-count-mobile">0</span>)
             </a>
         </div>
     </header>
 
-    <!-- Основной контент -->
+    <!-- ОСНОВНОЙ КОНТЕНТ -->
     <main id="app-content">
-
-        <!-- ПУБЛИЧНАЯ ОФЕРТА -->
-<section id="page-offer" class="page" style="padding-top: 120px;">
-    <div class="container fade-in">
-        <h2 class="section-title">Публичная оферта</h2>
-        <div class="legal-content">
-            <h3>1. Общие положения</h3>
-            <p>Данный документ является публичной офертой интернет-магазина VONRA. Оформляя заказ на сайте, Покупатель соглашается с условиями продажи товаров, изложенными ниже.</p>
-            
-            <h3>2. Оформление заказа</h3>
-            <p>Заказ оформляется Покупателем самостоятельно через сайт. После оформления заказа Покупателю поступает подтверждение на указанный электронный адрес или телефон.</p>
-            
-            <h3>3. Цена и оплата</h3>
-            <p>Цены на Сайте указаны в рублях РФ. Продавец оставляет за собой право изменять цены на товары без предварительного уведомления. Оплата производится картой на сайте или при получении заказа.</p>
-        </div>
-    </div>
-</section>
-
-<!-- ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ -->
-<section id="page-privacy" class="page" style="padding-top: 120px;">
-    <div class="container fade-in">
-        <h2 class="section-title">Политика конфиденциальности</h2>
-        <div class="legal-content">
-            <h3>1. Сбор информации</h3>
-            <p>Мы собираем информацию, когда вы оформляете заказ, подписываетесь на рассылку или заполняете форму обратной связи. Собранная информация включает ваше имя, адрес электронной почты и номер телефона.</p>
-            
-            <h3>2. Использование данных</h3>
-            <p>Любая собранная нами информация может быть использована для персонализации вашего опыта, улучшения сайта, улучшения службы поддержки и быстрой обработки транзакций.</p>
-            
-            <h3>3. Защита информации</h3>
-            <p>Мы используем различные средства безопасности, чтобы гарантировать сохранность ваших личных данных. Мы не продаем, не обмениваем и не передаем личные данные сторонним компаниям.</p>
-        </div>
-    </div>
-</section>
-
-<!-- УСЛОВИЯ ОБМЕНА И ВОЗВРАТА -->
-<section id="page-returns" class="page" style="padding-top: 120px;">
-    <div class="container fade-in">
-        <h2 class="section-title">Обмен и возврат</h2>
-        <div class="legal-content">
-            <h3>1. Сроки возврата</h3>
-            <p>Вы имеете право вернуть или обменять товар надлежащего качества в течение 14 дней с момента его получения, не считая дня покупки, согласно Закону РФ «О защите прав потребителей».</p>
-            
-            <h3>2. Требования к товару</h3>
-            <ul>
-                <li>Обувь не должна иметь следов носки (подошва должна быть абсолютно чистой).</li>
-                <li>Должны быть сохранены оригинальная коробка (без повреждений, скотча и надписей), все внутренние упаковочные материалы и заводские бирки.</li>
-                <li>В наличии должен быть документ, подтверждающий оплату (чек).</li>
-            </ul>
-            
-            <h3>3. Процедура возврата</h3>
-            <p>Для оформления возврата свяжитесь с нами по адресу support@vonra.ru. Возврат денежных средств осуществляется на банковскую карту, с которой была произведена оплата, в течение 10 рабочих дней после получения и проверки товара на складе.</p>
-        </div>
-    </div>
-</section>
         
-        <!-- ГЛАВНАЯ СТРАНИЦА -->
-<section id="page-home" class="page active" style="padding-top: 0;">
-    
-    <div class="hero-banner">
-        <div class="hero-overlay"></div>
-        <div class="container hero-content">
-            <h1 class="hero-title">VONRA</h1>
-            <p class="hero-subtitle">ОРИГИНАЛЬНЫЕ КРОССОВКИ & ПРЕМИАЛЬНЫЙ УЛИЧНЫЙ СТИЛЬ</p>
-        </div>
-    </div>
-
-    <!-- ДОБАВЛЕНА ОБЕРТКА ДЛЯ ТЕМНОГО ФОНА -->
-    <div class="home-dark-bg">
-        <div class="container fade-in" style="padding-top: 50px;">
+        <!-- ГЛАВНАЯ -->
+        <section id="page-home" class="page active">
+            <div class="hero-banner">
+                <div class="hero-overlay"></div>
+                <div class="container hero-content">
+                    <h1 class="hero-title">VONRA</h1>
+                    <p class="hero-subtitle">ОРИГИНАЛЬНЫЕ КРОССОВКИ & ПРЕМИАЛЬНЫЙ СТИЛЬ</p>
+                </div>
+            </div>
             
-            <!-- Здесь твоя карусель брендов -->
-            <div class="brand-carousel-wrapper" style="margin-bottom: 50px;">
-    <button class="carousel-arrow" onclick="scrollBrands('left')">&#10094;</button>
-    
-    <div class="carousel-viewport" style="overflow: hidden; width: 100%;">
-        <div class="brand-buttons-scroll" id="brandScroll">
-            <button class="brand-btn" onclick="filterCatalog('Nike', 'Nike')">Nike</button>
-            <button class="brand-btn" onclick="filterCatalog('Adidas', 'Adidas')">Adidas</button>
-            <button class="brand-btn" onclick="filterCatalog('New Balance', 'New Balance')">New Balance</button>
-            <button class="brand-btn" onclick="filterCatalog('Asics', 'Asics')">Asics</button>
-            <button class="brand-btn" onclick="filterCatalog('Jordan', 'Jordan')">Jordan</button>
-            <button class="brand-btn" onclick="filterCatalog('Yeezy', 'Yeezy')">Yeezy</button>
-        </div>
-    </div>
+            <div class="home-dark-bg">
+                <div class="container fade-in" style="padding-top: 40px;">
+                    <!-- Карусель брендов -->
+                    <div class="brand-carousel-wrapper">
+                        <button class="carousel-arrow" onclick="scrollBrands('left')">&#10094;</button>
+                        <div class="carousel-viewport">
+                            <div class="brand-buttons-scroll" id="brandScroll">
+                                <button class="brand-btn" onclick="filterCatalog('Nike', this)">Nike</button>
+                                <button class="brand-btn" onclick="filterCatalog('Adidas', this)">Adidas</button>
+                                <button class="brand-btn" onclick="filterCatalog('New Balance', this)">New Balance</button>
+                                <button class="brand-btn" onclick="filterCatalog('Asics', this)">Asics</button>
+                                <button class="brand-btn" onclick="filterCatalog('Jordan', this)">Jordan</button>
+                                <button class="brand-btn" onclick="filterCatalog('Yeezy', this)">Yeezy</button>
+                            </div>
+                        </div>
+                        <button class="carousel-arrow" onclick="scrollBrands('right')">&#10095;</button>
+                    </div>
 
-    <button class="carousel-arrow" onclick="scrollBrands('right')">&#10095;</button>
-</div>
-
-            <!-- Здесь Хиты продаж -->
-            <h2 class="section-title">Хиты продаж</h2>
-            <div class="product-grid" id="home-products"></div>
-            
-        </div>
-    </div>
-    
-</section>
-
-        <!-- КАТАЛОГ -->
-        <section id="page-catalog" class="page" style="padding-top: 120px;">
-            <div class="container fade-in">
-                <h2 class="section-title">Каталог</h2>
-                
-                <!-- Фильтры каталога -->
-                <div class="catalog-filters">
-    <button class="filter-btn active" onclick="filterCatalog('all', this)">Все модели</button>
-    <button class="filter-btn" onclick="filterCatalog('male', this)">Nike</button>
-    <button class="filter-btn" onclick="filterCatalog('female', this)">New Balance</button>
-    <button class="filter-btn" onclick="filterCatalog('female', this)">Asics</button>
-    <button class="filter-btn" onclick="filterCatalog('female', this)">Adidas</button>
-</div>
-
-                <div class="product-grid" id="catalog-products">
-                    <!-- Генерируется через JS -->
+                    <h2 class="section-title">Хиты продаж</h2>
+                    <div class="product-grid" id="home-products"></div>
                 </div>
             </div>
         </section>
 
-        <!-- СТРАНИЦА ТОВАРА -->
-        <section id="page-product" class="page" style="padding-top: 120px;">
-            <div class="container product-view fade-in" id="product-view-container">
-                <!-- Генерируется через JS -->
+        <!-- КАТАЛОГ -->
+        <section id="page-catalog" class="page">
+            <div class="container fade-in">
+                <h2 class="section-title">Каталог</h2>
+                
+                <div class="catalog-filters">
+                    <button class="filter-btn active" onclick="filterCatalog('all', this)">Все модели</button>
+                    <button class="filter-btn" onclick="filterCatalog('Nike', this)">Nike</button>
+                    <button class="filter-btn" onclick="filterCatalog('New Balance', this)">New Balance</button>
+                    <button class="filter-btn" onclick="filterCatalog('Asics', this)">Asics</button>
+                    <button class="filter-btn" onclick="filterCatalog('Adidas', this)">Adidas</button>
+                </div>
+
+                <div class="product-grid" id="catalog-products"></div>
             </div>
         </section>
 
-        <!-- ОФОРМЛЕНИЕ ЗАКАЗА (КОРЗИНА) -->
-        <section id="page-cart" class="page" style="padding-top: 120px;">
+        <!-- СТРАНИЦА ТОВАРА -->
+        <section id="page-product" class="page">
+            <div class="container product-view fade-in" id="product-view-container">
+                <!-- Рендерится через JS -->
+            </div>
+        </section>
+
+        <!-- КОРЗИНА -->
+        <section id="page-cart" class="page">
             <div class="container fade-in">
                 <h2 class="section-title">Оформление заказа</h2>
                 <div class="checkout-layout">
@@ -177,7 +113,7 @@
                         <input type="text" placeholder="Имя и Фамилия" class="input-field">
                         <input type="tel" placeholder="Телефон" class="input-field">
                         
-                        <h3 style="margin-top: 40px;">Доставка</h3>
+                        <h3 style="margin-top: 30px;">Доставка</h3>
                         <input type="text" placeholder="Адрес доставки / Пункт выдачи" class="input-field">
                         <textarea placeholder="Комментарий к заказу" class="input-field" rows="3" style="resize: none;"></textarea>
                     </div>
@@ -195,178 +131,157 @@
             </div>
         </section>
 
-<!-- О КОМПАНИИ -->
-<section id="page-about" class="page" style="padding-top: 120px;">
-    <div class="container fade-in">
-        
-        <!-- Главный интро-блок -->
-        <div class="about-intro">
-            <h2 class="section-title" style="margin-bottom: 25px; font-size: 28px; line-height: 1.4;">
-                Культовые релизы и трендовые пары с доставкой
-            </h2>
-            <p class="about-desc">
-                Кроссовки — это больше, чем обувь. Это язык улицы, история культуры и твой ежедневный комфорт. Мы доставляем оригинальные модели из мировых релизов, которые трудно найти в обычных магазинах. Только подлинники, проверенное качество и силуэты, за которыми охотится весь мир. Твой следующий безупречный образ начинается здесь.
-            </p>
-        </div>
-
-        <!-- Блок с преимуществами -->
-        <div class="about-features-section" style="margin-top: 80px;">
-            <h3 class="features-title">Почему заказывают у нас</h3>
-            
-            <div class="features-grid">
-                <!-- Преимущество 1 -->
-                <div class="feature-card">
-                    <div class="feature-icon">01</div>
-                    <h4>100% Оригинал и легитчек</h4>
-                    <p>Мы работаем только с проверенными байерами и зарубежными платформами. Каждая пара проходит многоуровневую проверку на подлинность: от швов и шрифтов на бирке до материалов и упаковки.</p>
-                </div>
-                
-                <!-- Преимущество 2 -->
-                <div class="feature-card">
-                    <div class="feature-icon">02</div>
-                    <h4>Актуальный ассортимент</h4>
-                    <p>От культовой классики (Nike, New Balance, Adidas) до лимитированных коллабораций и редких расцветок, которые задают тренды в стритвире.</p>
-                </div>
-                
-                <!-- Преимущество 3 -->
-                <div class="feature-card">
-                    <div class="feature-icon">03</div>
-                    <h4>Идеальное состояние</h4>
-                    <p>Все пары поставляются в оригинальных коробках и статусе Deadstock (новые, в идеальном состоянии, без следов примерки на улице).</p>
-                </div>
-                
-                <!-- Преимущество 4 -->
-                <div class="feature-card">
-                    <div class="feature-icon">04</div>
-                    <h4>Прозрачный сервис и доставка</h4>
-                    <p>Быстро отвечаем на вопросы, помогаем точно подобрать размер по длине стельки и бережно доставляем заказы в любом городе.</p>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</section>
-
-<!-- ДОСТАВКА И ОПЛАТА -->
-        <section id="page-delivery" class="page" style="padding-top: 120px;">
+        <!-- О КОМПАНИИ -->
+        <section id="page-about" class="page">
             <div class="container fade-in">
-                <h2 class="section-title">Доставка и оплата</h2>
-                <div class="about-intro">
-                    <p class="about-desc" style="margin-bottom: 30px;">
-                        Мы осуществляем доставку по всей территории России и странам СНГ. Все заказы надежно упаковываются для сохранения статуса Deadstock (идеальное состояние коробки и пары).
-                    </p>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; margin-top: 40px;">
-                        <div>
-                            <h4 style="font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px;">Курьерская доставка</h4>
-                            <p style="color: #888; font-size: 14px; line-height: 1.8;">Доставка курьером до двери (СДЭК, Яндекс.Доставка). Срок: от 2 до 5 рабочих дней. Стоимость рассчитывается индивидуально при оформлении.</p>
-                        </div>
-                        <div>
-                            <h4 style="font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px;">Пункты выдачи</h4>
-                            <p style="color: #888; font-size: 14px; line-height: 1.8;">Отправка до удобного ПВЗ СДЭК или Почты России. Срок: от 3 до 7 дней. Отслеживание по трек-номеру.</p>
-                        </div>
-                        <div>
-                            <h4 style="font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px;">Оплата</h4>
-                            <p style="color: #888; font-size: 14px; line-height: 1.8;">Мы принимаем оплату банковскими картами на сайте, а также через СБП. Оплата при получении доступна для постоянных клиентов.</p>
-                        </div>
+                <h2 class="section-title">Культовые релизы и трендовые пары</h2>
+                <p class="about-desc">
+                    Кроссовки — это больше, чем обувь. Это язык улицы и твой ежедневный комфорт. Мы доставляем оригинальные модели из мировых релизов, которые трудно найти в обычных магазинах. Только подлинники, проверенное качество и силуэты, за которыми охотится весь мир.
+                </p>
+                
+                <div class="features-grid" style="margin-top: 50px;">
+                    <div class="feature-card">
+                        <div class="feature-icon">01</div>
+                        <h4>100% Оригинал и легитчек</h4>
+                        <p>Работаем только с проверенными байерами. Каждая пара проходит многоуровневую проверку на подлинность.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">02</div>
+                        <h4>Актуальный ассортимент</h4>
+                        <p>От культовой классики до лимитированных коллабораций, которые задают тренды в стритвире.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">03</div>
+                        <h4>Идеальное состояние</h4>
+                        <p>Все пары поставляются в оригинальных коробках и статусе Deadstock (новые, без следов носки).</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">04</div>
+                        <h4>Прозрачный сервис</h4>
+                        <p>Помогаем точно подобрать размер по длине стельки и бережно доставляем заказы в любом городе.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-       <!-- СТРАНИЦА КОНТАКТОВ -->
-<section id="page-contact" class="page" style="padding-top: 120px;">
-    <div class="container fade-in">
-        <h2 class="section-title">Контакты</h2>
+        <!-- ДОСТАВКА -->
+        <section id="page-delivery" class="page">
+            <div class="container fade-in">
+                <h2 class="section-title">Доставка и оплата</h2>
+                <p class="about-desc" style="margin-bottom: 30px;">
+                    Мы осуществляем доставку по всей территории России и странам СНГ. Все заказы надежно упаковываются для сохранения статуса Deadstock.
+                </p>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <h4>Курьерская доставка</h4>
+                        <p>Доставка до двери (СДЭК, Яндекс.Доставка). Срок: от 2 до 5 рабочих дней.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Пункты выдачи</h4>
+                        <p>Отправка до удобного ПВЗ СДЭК или Почты России. Срок: от 3 до 7 дней.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- КОНТАКТЫ -->
+        <section id="page-contact" class="page">
+            <div class="container fade-in">
+                <h2 class="section-title">Контакты</h2>
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <div class="contact-block">
+                            <span class="contact-label">Служба поддержки</span>
+                            <a href="tel:+78000000000" class="contact-link">+7 (800) 000-00-00</a>
+                            <p class="contact-subtext">Ежедневно с 10:00 до 20:00</p>
+                            <a href="mailto:support@vonra.ru" class="contact-link">support@vonra.ru</a>
+                        </div>
+                        <div class="contact-block">
+                            <span class="contact-label">Соцсети</span>
+                            <a href="#" class="contact-link">Telegram</a>
+                            <a href="#" class="contact-link">ВКонтакте</a>
+                        </div>
+                    </div>
+                    <div class="contact-form-wrapper">
+                        <h3 style="margin-bottom: 20px; font-weight: 400;">Напишите нам</h3>
+                        <form class="contact-form" onsubmit="event.preventDefault(); alert('Сообщение отправлено!');">
+                            <input type="text" placeholder="Ваше имя" required>
+                            <input type="text" placeholder="Email или Telegram" required>
+                            <textarea placeholder="Текст сообщения" rows="5" required></textarea>
+                            <button type="submit" class="btn-primary w-100">Отправить</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
         
-        <div class="contact-grid">
-            <!-- Блок с контактными данными -->
-            <div class="contact-info">
-                <div class="contact-block">
-                    <span class="contact-label">Служба поддержки</span>
-                    <a href="tel:+78000000000" class="contact-link">+7 (800) 000-00-00</a>
-                    <p class="contact-subtext">Ежедневно с 10:00 до 20:00</p>
-                    <a href="mailto:support@vonra.ru" class="contact-link">support@vonra.ru</a>
-                </div>
-
-                <div class="contact-block">
-                    <span class="contact-label">Мессенджеры и соцсети</span>
-                    <a href="#" class="contact-link">Telegram</a>
-                    <a href="#" class="contact-link">ВКонтакте</a>
-                </div>
-
-                <div class="contact-block">
-                    <span class="contact-label">Сотрудничество и PR</span>
-                    <a href="mailto:pr@vonra.ru" class="contact-link">pr@vonra.ru</a>
-                </div>
-
-                <div class="contact-block">
-                    <span class="contact-label">Флагманский магазин</span>
-                    <p class="contact-text">г. Москва, ул. Примерная, д. 10</p>
-                    <p class="contact-subtext">Вход со двора, 2 этаж</p>
-                </div>
-
-                <div class="contact-block legal-info">
-                    <p>ИП Фамилия Имя Отчество</p>
-                    <p>ИНН: 123456789012 | ОГРНИП: 123456789012345</p>
-                    <p>Юридический адрес: г. Москва, ул. Юридическая, д. 1</p>
-                </div>
+        <!-- ЮРИДИЧЕСКИЕ СТРАНИЦЫ -->
+        <section id="page-offer" class="page">
+            <div class="container fade-in legal-content">
+                <h2 class="section-title">Публичная оферта</h2>
+                <h3>1. Общие положения</h3>
+                <p>Данный документ является публичной офертой интернет-магазина VONRA. Оформляя заказ, Покупатель соглашается с условиями.</p>
+                <h3>2. Оплата</h3>
+                <p>Цены указаны в рублях РФ. Оплата производится картой на сайте или при получении.</p>
             </div>
+        </section>
 
-            <!-- Форма обратной связи -->
-            <div class="contact-form-wrapper">
-                <h3 style="margin-bottom: 25px; font-size: 20px; font-weight: 500;">Напишите нам</h3>
-                <form class="contact-form" onsubmit="event.preventDefault(); alert('Сообщение отправлено!');">
-                    <input type="text" placeholder="Ваше имя" required>
-                    <input type="text" placeholder="Email или Telegram для связи" required>
-                    <textarea placeholder="Текст сообщения" rows="6" required></textarea>
-                    <button type="submit" class="btn-primary w-100">Отправить сообщение</button>
-                </form>
+        <section id="page-privacy" class="page">
+            <div class="container fade-in legal-content">
+                <h2 class="section-title">Конфиденциальность</h2>
+                <h3>1. Сбор информации</h3>
+                <p>Мы собираем ваше имя, email и телефон только для обработки заказов.</p>
+                <h3>2. Защита данных</h3>
+                <p>Мы не продаем и не передаем ваши данные третьим лицам.</p>
             </div>
-        </div>
-    </div>
-</section>
+        </section>
+
+        <section id="page-returns" class="page">
+            <div class="container fade-in legal-content">
+                <h2 class="section-title">Возврат и обмен</h2>
+                <h3>1. Сроки</h3>
+                <p>Возврат надлежащего качества возможен в течение 14 дней с момента получения.</p>
+                <h3>2. Требования</h3>
+                <p>Обувь не должна иметь следов носки, коробка должна быть без повреждений.</p>
+            </div>
+        </section>
 
     </main>
 
-<!-- ПОДВАЛ САЙТА (FOOTER) -->
-<footer class="site-footer">
-    <div class="container">
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <h3 class="footer-logo">VONRA</h3>
-                <p class="footer-desc">Оригинальные кроссовки и премиальный уличный стиль. Быстрая доставка по всей России.</p>
-            </div>
-            
-            <div class="footer-nav">
-                <h4 class="footer-title">Покупателям</h4>
-                <a href="#" onclick="navigate('catalog'); filterCatalog('all', 'Все модели'); return false;">Каталог</a>
-                <a href="#" onclick="navigate('delivery'); return false;">Доставка и оплата</a>
-                <a href="#" onclick="navigate('about'); return false;">О компании</a>
-                <a href="#" onclick="navigate('contact'); return false;">Контакты</a>
-            </div>
-
-            <div class="footer-nav">
-    <h4 class="footer-title">Правовая информация</h4>
-    <a href="#" onclick="navigate('offer'); window.scrollTo(0,0); return false;">Публичная оферта</a>
-    <a href="#" onclick="navigate('privacy'); window.scrollTo(0,0); return false;">Политика конфиденциальности</a>
-    <a href="#" onclick="navigate('returns'); window.scrollTo(0,0); return false;">Условия обмена и возврата</a>
-</div>
-
-            <div class="footer-social">
-                <h4 class="footer-title">Связь с нами</h4>
-                <a href="mailto:support@vonra.ru" style="display: block; margin-bottom: 10px;">support@vonra.ru</a>
-                <div class="social-icons">
-                    <a href="#">VK</a>
-                    <a href="#">Telegram</a>
+    <!-- ПОДВАЛ -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3 class="footer-logo">VONRA</h3>
+                    <p class="footer-desc">Оригинальные кроссовки и премиальный уличный стиль. Быстрая доставка по России.</p>
+                </div>
+                <div class="footer-nav">
+                    <h4 class="footer-title">Покупателям</h4>
+                    <a href="#" onclick="navigate('catalog'); return false;">Каталог</a>
+                    <a href="#" onclick="navigate('delivery'); return false;">Доставка</a>
+                    <a href="#" onclick="navigate('about'); return false;">О компании</a>
+                </div>
+                <div class="footer-nav">
+                    <h4 class="footer-title">Правовая информация</h4>
+                    <a href="#" onclick="navigate('offer'); return false;">Оферта</a>
+                    <a href="#" onclick="navigate('privacy'); return false;">Конфиденциальность</a>
+                    <a href="#" onclick="navigate('returns'); return false;">Возврат</a>
+                </div>
+                <div class="footer-social">
+                    <h4 class="footer-title">Связь</h4>
+                    <a href="mailto:support@vonra.ru">support@vonra.ru</a>
+                    <div class="social-icons">
+                        <a href="#">VK</a>
+                        <a href="#">Telegram</a>
+                    </div>
                 </div>
             </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 VONRA. Все права защищены.</p>
+            </div>
         </div>
-        
-        <div class="footer-bottom">
-            <p>&copy; 2026 VONRA. Все права защищены.</p>
-        </div>
-    </div>
-</footer>
+    </footer>
 
     <script src="app.js"></script>
 </body>
