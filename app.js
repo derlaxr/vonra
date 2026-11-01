@@ -1,34 +1,30 @@
-// База из 16 товаров с параметрами isHit (Хиты) и isNew (Новинки)
+// ВАЖНО: Все ID теперь уникальные (от 1 до 16). Никаких дублей.
 const products = [
-    // --- Nike ---
-    { id: 1, name: "Nike Air Force 1", price: 8000, category: 'male', isHit: true, img: "./IMG/eeef.jpg" },
-    { id: 2, name: "Nike dunk low", price: 5000, category: 'male', isHit: false, img: "./IMG/item-31137770-f21d-4eba-8e07-592000220c99.jpg" },
-    { id: 3, name: "Nike mind", price: 9000, category: 'male', isHit: false, img: "./IMG/vhfh.jpg" },
-    { id: 4, name: "Nike Jordan 1", price: 12000, category: 'male', isHit: true, img: "./IMG/1.webp" },
+    { id: 1, name: "Nike Air Force 1", price: 8000, brand: 'Nike', isHit: true, img: "./IMG/eeef.jpg" },
+    { id: 2, name: "Nike dunk low", price: 5000, brand: 'Nike', isHit: false, img: "./IMG/item-31137770-f21d-4eba-8e07-592000220c99.jpg" },
+    { id: 3, name: "Nike mind", price: 9000, brand: 'Nike', isHit: false, img: "./IMG/vhfh.jpg" },
+    { id: 4, name: "Nike Jordan 1", price: 12000, brand: 'Jordan', isHit: true, img: "./IMG/1.webp" },
 
-    // --- New balance ---
-    { id: 5, name: "New Balance 740v2 White Navy Shadow Grey", price: 7000, category: 'female', isHit: true, img: "./IMG/13494299116.jpg" },
-    { id: 6, name: "New Balance 1906R New Spruce", price: 7500, category: 'female', isHit: false, img: "./IMG/2.webp" },
-    { id: 7, name: "Aimé Leon Dore x New Balance 1906R Green", price: 6000, category: 'female', isHit: false, img: "./IMG/3.webp" },
-    { id: 8, name: "New Balance 530 White Natural Indigo", price: 8000, category: 'female', isHit: true, img: "./IMG/1.webp" },
+    { id: 5, name: "New Balance 740v2 White Navy Shadow Grey", price: 7000, brand: 'New Balance', isHit: true, img: "./IMG/13494299116.jpg" },
+    { id: 6, name: "New Balance 1906R New Spruce", price: 7500, brand: 'New Balance', isHit: false, img: "./IMG/2.webp" },
+    { id: 7, name: "Aimé Leon Dore x New Balance 1906R Green", price: 6000, brand: 'New Balance', isHit: false, img: "./IMG/3.webp" },
+    { id: 8, name: "New Balance 530 White Natural Indigo", price: 8000, brand: 'New Balance', isHit: true, img: "./IMG/1.webp" },
 
-    // --- Asics ---
-    { id: 9, name: "Nite Jogger 7.0", price: 18500, category: 'female', isHit: true, img: "./IMG/13494299116.jpg" },
-    { id: 10, name: "Oversize Trench", price: 29000, category: 'female', isHit: false, img: "./IMG/2.webp" },
-    { id: 11, name: "Silk Blouse", price: 12000, category: 'female', isHit: false, img: "./IMG/3.webp" },
-    { id: 12, name: "Palazzo Pants", price: 15500, category: 'female', isHit: true, img: "./IMG/1.webp" },
+    { id: 9, name: "Asics Gel-Kayano 14", price: 18500, brand: 'Asics', isHit: true, img: "./IMG/13494299116.jpg" },
+    { id: 10, name: "Asics GT-2160", price: 14000, brand: 'Asics', isHit: false, img: "./IMG/2.webp" },
+    { id: 11, name: "Asics Gel-NYC", price: 12000, brand: 'Asics', isHit: false, img: "./IMG/3.webp" },
+    { id: 12, name: "Asics Novablast 4", price: 15500, brand: 'Asics', isHit: true, img: "./IMG/1.webp" },
 
-    // --- Adidas ---
-    { id: 13, name: "Wmns Campus 00s Wonder White", price: 3000, category: 'female', isHit: true, img: "./IMG/13494299116.jpg" },
-    { id: 14, name: "Samba OG Black Gum", price: 4000, category: 'female', isHit: false, img: "./IMG/2.webp" },
-    { id: 15, name: "Korn x Campus 00s Black Gum", price: 3500, category: 'female', isHit: false, img: "./IMG/3.webp" },
-    { id: 16, name: "Palazzo Pants", price: 15500, category: 'female', isHit: true, img: "./IMG/1.webp" },
+    { id: 13, name: "Adidas Wmns Campus 00s Wonder White", price: 3000, brand: 'Adidas', isHit: true, img: "./IMG/13494299116.jpg" },
+    { id: 14, name: "Adidas Samba OG Black Gum", price: 4000, brand: 'Adidas', isHit: false, img: "./IMG/2.webp" },
+    { id: 15, name: "Adidas Campus 00s Black Gum", price: 3500, brand: 'Adidas', isHit: false, img: "./IMG/3.webp" },
+    { id: 16, name: "Adidas Yeezy Boost 350 V2", price: 15500, brand: 'Yeezy', isHit: true, img: "./IMG/1.webp" },
 ];
 
 let cart = JSON.parse(localStorage.getItem('vonra_cart')) || [];
-let currentSelectedSize = 'M'; 
+let currentSelectedSize = '40'; 
 
-// Скрытие шапки
+// СКРЫТИЕ ШАПКИ ПРИ СКРОЛЛЕ ВНИЗ
 let lastScrollTop = 0;
 const header = document.getElementById('main-header');
 
@@ -39,63 +35,51 @@ window.addEventListener('scroll', () => {
     } else {
         header.classList.remove('hidden'); 
     }
-    lastScrollTop = scrollTop;
+    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
 });
 
-// Анимации
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-        }
-    });
-}, { threshold: 0.1 });
-
-function observeElements() {
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-}
-
-// Навигация
+// НАВИГАЦИЯ (SPA)
 function navigate(pageId) {
     document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
     document.getElementById(`page-${pageId}`).classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    setTimeout(observeElements, 100);
-}
-
-function goToCatalog(category) {
-    navigate('catalog');
-    const buttons = document.querySelectorAll('.catalog-filters .filter-btn');
-    buttons.forEach(btn => {
-        if ((category === 'male' && btn.innerText === 'Nike') || 
-            (category === 'female' && btn.innerText === 'New balance')) {
-            filterCatalog(category, btn);
-        }
-    });
+    
+    // Закрываем мобильное меню при переходе, если оно открыто
+    const mobileNav = document.getElementById('mobile-nav');
+    if (mobileNav.classList.contains('active')) {
+        toggleMobileMenu();
+    }
 }
 
 function toggleMobileMenu() {
     document.getElementById('mobile-nav').classList.toggle('active');
 }
 
-// Рендер обычных сеток
-function renderGrid(containerId, filterType = 'all') {
+// ОТРИСОВКА ТОВАРОВ
+function renderGrid(containerId, filterBrand = 'all', onlyHits = false) {
     const container = document.getElementById(containerId);
     if (!container) return;
     
     container.innerHTML = '';
     let filtered = products;
 
-    if (filterType === 'hits') {
-        filtered = products.filter(p => p.isHit);
-    } else if (filterType !== 'all') {
-        filtered = products.filter(p => p.category === filterType);
+    if (onlyHits) {
+        filtered = filtered.filter(p => p.isHit);
+    }
+    if (filterBrand !== 'all') {
+        filtered = filtered.filter(p => p.brand === filterBrand);
+    }
+
+    if (filtered.length === 0) {
+        container.innerHTML = '<p style="color: #666;">Товаров не найдено</p>';
+        return;
     }
 
     filtered.forEach(p => {
+        // Обертка product-title-wrapper нужна для свайпа длинных названий
         container.innerHTML += `
-            <div class="product-card fade-in" onclick="openProduct(${p.id})">
-                <img src="${p.img}" class="product-img" alt="${p.name}">
+            <div class="product-card" onclick="openProduct(${p.id})">
+                <img src="${p.img}" class="product-img" alt="${p.name}" loading="lazy">
                 <div class="product-info">
                     <div class="product-title-wrapper">
                         <span class="product-title">${p.name}</span>
@@ -105,60 +89,26 @@ function renderGrid(containerId, filterType = 'all') {
             </div>
         `;
     });
-    observeElements();
 }
 
-function filterCatalog(category, btnElement) {
+// ФИЛЬТРАЦИЯ КАТАЛОГА
+function filterCatalog(brand, btnElement) {
     navigate('catalog');
+    
+    // Обновляем активную кнопку
     document.querySelectorAll('.catalog-filters .filter-btn').forEach(btn => {
         btn.classList.remove('active');
     });
-    // Проверяем, передан ли элемент кнопки
-    if (btnElement && btnElement.classList) {
-        btnElement.classList.add('active');
-    }
-    renderGrid('catalog-products', category);
-}
-
-// АВТО-ОБНОВЛЕНИЕ НОВИНОК (Каждые 5 секунд)
-let newArrivalsOffset = 0;
-function rotateNewArrivals() {
-    const container = document.getElementById('new-arrivals-products');
-    if (!container) return;
-
-    const newItems = products.filter(p => p.isNew || p.isHit);
-    if (newItems.length === 0) return;
-
-    let itemsToShow = [];
-    for(let i = 0; i < 4; i++) {
-        itemsToShow.push(newItems[(newArrivalsOffset + i) % newItems.length]);
-    }
-
-    container.style.opacity = 0;
+    if (btnElement) btnElement.classList.add('active');
     
-    setTimeout(() => {
-        container.innerHTML = '';
-        itemsToShow.forEach(p => {
-            container.innerHTML += `
-                <div class="product-card" onclick="openProduct(${p.id})">
-                    <img src="${p.img}" class="product-img" alt="${p.name}">
-                    <div class="product-info">
-                        <div class="product-title-wrapper">
-                            <span class="product-title">${p.name}</span>
-                        </div>
-                        <span class="product-price">${p.price.toLocaleString()} ₽</span>
-                    </div>
-                </div>
-            `;
-        });
-        container.style.opacity = 1;
-        newArrivalsOffset = (newArrivalsOffset + 1) % newItems.length;
-    }, 500);
+    renderGrid('catalog-products', brand);
 }
 
-// Товар и Корзина
+// СТРАНИЦА ТОВАРА
 function openProduct(id) {
     const p = products.find(item => item.id === id);
+    if (!p) return;
+    
     currentSelectedSize = '40'; 
     
     document.getElementById('product-view-container').innerHTML = `
@@ -167,7 +117,7 @@ function openProduct(id) {
             <h1>${p.name}</h1>
             <div class="price">${p.price.toLocaleString()} ₽</div>
             
-            <div style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; letter-spacing: 1px;">Выберите размер:</div>
+            <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 10px; letter-spacing: 1px;">ВЫБЕРИТЕ РАЗМЕР:</div>
             <div class="size-options">
                 <button class="size-btn" onclick="selectSize('39')">39</button>
                 <button class="size-btn active" onclick="selectSize('40')">40</button>
@@ -179,10 +129,10 @@ function openProduct(id) {
                 <button class="size-btn" onclick="selectSize('46')">46</button>
             </div>
 
-            <p style="color: #888; font-size: 14px; margin-bottom: 40px; line-height: 1.8;">
-                Детально проработанный крой и материалы премиум-класса. Разработано с упором на максимальный комфорт, утилитарную эстетику и строгие линии бренда VONRA.
+            <p style="color: #888; font-size: 13px; margin-bottom: 30px; line-height: 1.6;">
+                Детально проработанный крой и материалы премиум-класса. Разработано с упором на максимальный комфорт и строгие линии бренда VONRA.
             </p>
-            <button class="btn-primary w-100" onclick="addToCart(${p.id})">Добавить в корзину</button>
+            <button class="btn-primary" onclick="addToCart(${p.id})">Добавить в корзину</button>
         </div>
     `;
     navigate('product');
@@ -196,6 +146,7 @@ function selectSize(size) {
     });
 }
 
+// КОРЗИНА
 function addToCart(id) {
     const p = products.find(item => item.id === id);
     const cartKey = `${id}-${currentSelectedSize}`;
@@ -208,14 +159,18 @@ function addToCart(id) {
     }
     
     saveCart();
+    
+    // Визуальный отклик на кнопке
     const btn = document.querySelector('.product-details .btn-primary');
     if (btn) {
         const originalText = btn.innerText;
         btn.innerText = 'Добавлено ✓';
         btn.style.background = '#4CAF50';
+        btn.style.color = '#fff';
         setTimeout(() => {
             btn.innerText = originalText;
             btn.style.background = 'var(--text-color)';
+            btn.style.color = 'var(--bg-color)';
         }, 1500);
     }
 }
@@ -239,10 +194,8 @@ function saveCart() {
 function renderCart() {
     const count = cart.reduce((sum, item) => sum + item.quantity, 0);
     
-    const desktopCounter = document.getElementById('cart-count');
-    const mobileCounter = document.getElementById('cart-count-mobile');
-    if (desktopCounter) desktopCounter.innerText = count;
-    if (mobileCounter) mobileCounter.innerText = count;
+    document.getElementById('cart-count').innerText = count;
+    document.getElementById('cart-count-mobile').innerText = count;
 
     const container = document.getElementById('cart-items-container');
     const totalEl = document.getElementById('cart-total-price');
@@ -250,7 +203,7 @@ function renderCart() {
     if (!container) return;
 
     if (cart.length === 0) {
-        container.innerHTML = '<p style="color: #666; text-align: center; margin: 30px 0; font-size: 14px;">Ваша корзина пуста</p>';
+        container.innerHTML = '<p style="color: #666; text-align: center; margin: 20px 0; font-size: 13px;">Ваша корзина пуста</p>';
         totalEl.innerText = '0 ₽';
         return;
     }
@@ -263,13 +216,13 @@ function renderCart() {
         container.innerHTML += `
             <div class="cart-item">
                 <div>
-                    <div style="font-weight: 600; font-size: 14px; margin-bottom: 4px;">${item.name}</div>
-                    <div style="color: var(--text-muted); font-size: 11px; text-transform: uppercase; margin-bottom: 8px;">Размер: ${item.size}</div>
-                    <div style="color: #888; font-size: 13px;">${item.price.toLocaleString()} ₽</div>
+                    <div style="font-weight: 600; font-size: 13px; margin-bottom: 4px;">${item.name}</div>
+                    <div style="color: var(--text-muted); font-size: 11px; margin-bottom: 8px;">Размер: ${item.size}</div>
+                    <div style="font-size: 13px;">${item.price.toLocaleString()} ₽</div>
                 </div>
                 <div class="cart-controls">
                     <button onclick="updateQuantity('${item.cartKey}', -1)">−</button>
-                    <span style="margin: 0 10px; font-size: 13px; font-weight: 600;">${item.quantity}</span>
+                    <span style="margin: 0 8px; font-size: 13px; font-weight: 600;">${item.quantity}</span>
                     <button onclick="updateQuantity('${item.cartKey}', 1)">+</button>
                 </div>
             </div>
@@ -279,20 +232,8 @@ function renderCart() {
     totalEl.innerText = `${total.toLocaleString()} ₽`;
 }
 
-// Запуск
-document.addEventListener('DOMContentLoaded', () => {
-    renderGrid('home-products', 'hits');
-    renderGrid('catalog-products', 'all');
-    renderCart();
-    
-    rotateNewArrivals();
-    setInterval(rotateNewArrivals, 5000);
-    
-    observeElements();
-});
-
+// КАРУСЕЛЬ БРЕНДОВ (ГЛАВНАЯ)
 let isAnimating = false;
-
 function scrollBrands(direction) {
     if (isAnimating) return;
     isAnimating = true;
@@ -302,33 +243,35 @@ function scrollBrands(direction) {
 
     const firstItem = container.firstElementChild;
     const lastItem = container.lastElementChild;
-    const itemWidth = firstItem.offsetWidth + 15; 
+    const itemWidth = firstItem.offsetWidth + 10; // 10px это gap
 
     if (direction === 'right') {
         container.style.transition = 'transform 0.3s ease-in-out';
         container.style.transform = `translateX(-${itemWidth}px)`;
 
-        container.addEventListener('transitionend', function handler() {
+        setTimeout(() => {
             container.style.transition = 'none';
             container.style.transform = 'translateX(0)';
             container.appendChild(firstItem);
-            container.removeEventListener('transitionend', handler);
             isAnimating = false;
-        });
+        }, 300);
     } else if (direction === 'left') {
         container.insertBefore(lastItem, firstItem);
         container.style.transition = 'none';
         container.style.transform = `translateX(-${itemWidth}px)`;
 
-        void container.offsetWidth;
-
-        container.style.transition = 'transform 0.3s ease-in-out';
-        container.style.transform = 'translateX(0)';
-
-        container.addEventListener('transitionend', function handler() {
-            container.style.transition = 'none';
-            container.removeEventListener('transitionend', handler);
-            isAnimating = false;
-        });
+        setTimeout(() => {
+            container.style.transition = 'transform 0.3s ease-in-out';
+            container.style.transform = 'translateX(0)';
+            setTimeout(() => { isAnimating = false; }, 300);
+        }, 10);
     }
 }
+
+// ЗАПУСК ПРИ ЗАГРУЗКЕ
+document.addEventListener('DOMContentLoaded', () => {
+    // Рендерим товары
+    renderGrid('home-products', 'all', true); // Только хиты на главной
+    renderGrid('catalog-products', 'all'); // Все в каталоге
+    renderCart();
+});
