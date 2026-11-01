@@ -156,9 +156,9 @@ main {
 
 .page {
     display: none;
-    padding-top: 100px; /* Отступ от фиксированной шапки */
+    padding-top: 100px;
     min-height: 100vh;
-    background-color: rgba(10, 10, 10, 0.92); /* Темный фон для всех страниц */
+    background-color: rgba(10, 10, 10, 0.92);
 }
 
 .page.active {
@@ -166,7 +166,7 @@ main {
 }
 
 #page-home {
-    padding-top: 0; /* Главная страница имеет свой баннер */
+    padding-top: 0;
     background-color: transparent;
 }
 
@@ -225,7 +225,6 @@ main {
 /* СЕТКА ТОВАРОВ (АВТОМАТИЧЕСКАЯ АДАПТАЦИЯ) */
 .product-grid {
     display: grid;
-    /* На телефоне будет 2 колонки, на ПК 4-5 */
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     gap: 20px 15px;
     margin-bottom: 50px;
@@ -264,12 +263,12 @@ main {
     overflow-x: auto;
     white-space: nowrap;
     -webkit-overflow-scrolling: touch;
-    scrollbar-width: none; /* Скрываем скроллбар Firefox */
-    mask-image: linear-gradient(to right, black 85%, transparent 100%); /* Градиент в конце */
+    scrollbar-width: none;
+    mask-image: linear-gradient(to right, black 85%, transparent 100%);
 }
 
 .product-title-wrapper::-webkit-scrollbar {
-    display: none; /* Скрываем скроллбар Chrome/Safari */
+    display: none;
 }
 
 .product-title {
@@ -308,7 +307,7 @@ main {
 
 .filter-btn.active { color: var(--text-color); font-weight: 600; }
 
-/* СТРАНИЦА ТОВАРА (ИСПРАВЛЕНО) */
+/* СТРАНИЦА ТОВАРА */
 .product-view {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -327,7 +326,7 @@ main {
     display: flex;
     flex-direction: column;
     width: 100%;
-    min-width: 0; /* Защита от переполнения */
+    min-width: 0;
 }
 
 .product-details h1 {
@@ -343,10 +342,10 @@ main {
     margin-bottom: 20px;
 }
 
-/* КНОПКИ РАЗМЕРОВ (ИСПРАВЛЕНО) */
+/* КНОПКИ РАЗМЕРОВ */
 .size-options {
     display: flex;
-    flex-wrap: wrap; /* Кнопки переносятся на новую строку */
+    flex-wrap: wrap;
     gap: 8px;
     margin-bottom: 25px;
 }
@@ -356,7 +355,7 @@ main {
     border: 1px solid var(--border-color);
     color: var(--text-color);
     padding: 10px 0;
-    flex: 1 1 calc(25% - 8px); /* 4 кнопки в ряд */
+    flex: 1 1 calc(25% - 8px);
     min-width: 45px;
     cursor: pointer;
     font-size: 13px;
@@ -368,20 +367,28 @@ main {
     color: var(--bg-color);
 }
 
+/* КНОПКИ (обновлено для контактов) */
 .btn-primary {
     background: var(--text-color);
     color: var(--bg-color);
     border: none;
     padding: 15px 20px;
+    font-family: inherit;
     font-size: 13px;
     font-weight: 600;
     text-transform: uppercase;
     cursor: pointer;
     width: 100%;
     transition: opacity 0.3s;
+    display: inline-block;
+    text-align: center;
 }
 
-.btn-primary:hover { opacity: 0.8; }
+.btn-primary:hover { 
+    opacity: 0.8; 
+}
+
+.w-100 { width: 100%; }
 
 /* КОРЗИНА */
 .checkout-layout {
@@ -451,7 +458,7 @@ main {
     border-top: 1px solid var(--border-color);
 }
 
-/* О КОМПАНИИ / ДОСТАВКА (СЕТКА КАРТОЧЕК) */
+/* О КОМПАНИИ / ДОСТАВКА */
 .features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -487,7 +494,7 @@ main {
     line-height: 1.8;
 }
 
-/* КОНТАКТЫ */
+/* КОНТАКТЫ (Обновлено) */
 .contact-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -507,14 +514,37 @@ main {
     font-size: 16px;
     margin-bottom: 5px;
 }
-.contact-form input, .contact-form textarea {
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact-form input, 
+.contact-form textarea {
     width: 100%;
     background: transparent;
     border: 1px solid var(--border-color);
     color: var(--text-color);
-    padding: 12px;
-    margin-bottom: 15px;
+    padding: 15px;
     font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.contact-form input:focus, 
+.contact-form textarea:focus {
+    border-color: var(--text-color);
+}
+
+.contact-form textarea {
+    resize: none;
+}
+
+.contact-form button {
+    margin-top: 10px; 
 }
 
 /* ЮРИДИЧЕСКИЕ СТРАНИЦЫ */
@@ -575,63 +605,46 @@ main {
     cursor: pointer;
 }
 
-/* =========================================
-   МОБИЛЬНАЯ АДАПТАЦИЯ (ТОЛЬКО ТУТ ВНЕСЕНЫ ИЗМЕНЕНИЯ)
-   ========================================= */
+/* МОБИЛЬНАЯ АДАПТАЦИЯ */
 @media (min-width: 769px) {
     .mobile-nav { display: none !important; }
 }
 
 @media (max-width: 768px) {
     .container { padding: 0 15px; }
-    body { background-attachment: scroll; } /* Фикс лагов фона на iOS */
+    body { background-attachment: scroll; }
     
     .desktop-nav, .desktop-cart { display: none; }
     .mobile-menu-btn { display: block; }
     
-    /* Сетка товаров на телефоне: 2 колонки */
     .product-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 15px 10px;
     }
     
-    /* Страница товара: в одну колонку */
     .product-view {
         grid-template-columns: 1fr;
         gap: 20px;
     }
     
     .product-view-img {
-        aspect-ratio: 1 / 1; /* Квадратная картинка на телефоне */
-        object-fit: contain; /* Не обрезаем кроссовок */
+        aspect-ratio: 1 / 1;
+        object-fit: contain;
     }
 
     .product-details h1 { font-size: 22px; }
 
-    /* Корзина: в одну колонку */
     .checkout-layout {
         grid-template-columns: 1fr;
         gap: 30px;
     }
 
-    /* Контакты: в одну колонку */
     .contact-grid {
         grid-template-columns: 1fr;
         gap: 30px;
     }
 
-    /* Секция преимуществ: в одну колонку */
     .features-grid {
         grid-template-columns: 1fr;
     }
-}
-
-@media (max-width: 400px) {
-    /* На очень узких экранах (iPhone SE) можно сделать 1 колонку, 
-       но если вам нравится по 2, оставьте этот блок закомментированным */
-    /* 
-    .product-grid {
-        grid-template-columns: 1fr;
-    } 
-    */
 }
