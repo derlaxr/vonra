@@ -1,16 +1,16 @@
 // База из 16 товаров с параметрами isHit (Хиты) и isNew (Новинки)
 const products = [
- // --- Nike ---
+    // --- Nike ---
     { id: 1, name: "Nike Air Force 1", price: 8000, category: 'male', isHit: true, img: "./IMG/eeef.jpg" },
     { id: 2, name: "Nike dunk low", price: 5000, category: 'male', isHit: false, img: "./IMG/item-31137770-f21d-4eba-8e07-592000220c99.jpg" },
     { id: 3, name: "Nike mind", price: 9000, category: 'male', isHit: false, img: "./IMG/vhfh.jpg" },
     { id: 4, name: "Nike Jordan 1", price: 12000, category: 'male', isHit: true, img: "./IMG/1.webp" },
 
     // --- New balance ---
-    { id: 9, name: "New Balance 740v2 White Navy Shadow Grey", price: 7000, category: 'female', isHit: true, img: "./IMG/13494299116.jpg" },
-    { id: 10, name: "New Balance 1906R New Spruce", price: 7500, category: 'female', isHit: false, img: "./IMG/2.webp" },
-    { id: 11, name: "Aimé Leon Dore x New Balance 1906R Green", price: 6000, category: 'female', isHit: false, img: "./IMG/3.webp" },
-    { id: 12, name: "New Balance 530 White Natural Indigo", price: 8000, category: 'female', isHit: true, img: "./IMG/1.webp" },
+    { id: 5, name: "New Balance 740v2 White Navy Shadow Grey", price: 7000, category: 'female', isHit: true, img: "./IMG/13494299116.jpg" },
+    { id: 6, name: "New Balance 1906R New Spruce", price: 7500, category: 'female', isHit: false, img: "./IMG/2.webp" },
+    { id: 7, name: "Aimé Leon Dore x New Balance 1906R Green", price: 6000, category: 'female', isHit: false, img: "./IMG/3.webp" },
+    { id: 8, name: "New Balance 530 White Natural Indigo", price: 8000, category: 'female', isHit: true, img: "./IMG/1.webp" },
 
     // --- Asics ---
     { id: 9, name: "Nite Jogger 7.0", price: 18500, category: 'female', isHit: true, img: "./IMG/13494299116.jpg" },
@@ -19,10 +19,10 @@ const products = [
     { id: 12, name: "Palazzo Pants", price: 15500, category: 'female', isHit: true, img: "./IMG/1.webp" },
 
     // --- Adidas ---
-    { id: 9, name: "Wmns Campus 00s Wonder White", price: 3000, category: 'female', isHit: true, img: "./IMG/13494299116.jpg" },
-    { id: 10, name: "Samba OG Black Gum", price: 4000, category: 'female', isHit: false, img: "./IMG/2.webp" },
-    { id: 11, name: "Korn x Campus 00s Black Gum", price: 3500, category: 'female', isHit: false, img: "./IMG/3.webp" },
-    { id: 12, name: "Palazzo Pants", price: 15500, category: 'female', isHit: true, img: "./IMG/1.webp" },
+    { id: 13, name: "Wmns Campus 00s Wonder White", price: 3000, category: 'female', isHit: true, img: "./IMG/13494299116.jpg" },
+    { id: 14, name: "Samba OG Black Gum", price: 4000, category: 'female', isHit: false, img: "./IMG/2.webp" },
+    { id: 15, name: "Korn x Campus 00s Black Gum", price: 3500, category: 'female', isHit: false, img: "./IMG/3.webp" },
+    { id: 16, name: "Palazzo Pants", price: 15500, category: 'female', isHit: true, img: "./IMG/1.webp" },
 ];
 
 let cart = JSON.parse(localStorage.getItem('vonra_cart')) || [];
@@ -67,8 +67,8 @@ function goToCatalog(category) {
     navigate('catalog');
     const buttons = document.querySelectorAll('.catalog-filters .filter-btn');
     buttons.forEach(btn => {
-        if ((category === 'male' && btn.innerText === 'МУЖСКОЕ') || 
-            (category === 'female' && btn.innerText === 'ЖЕНСКОЕ')) {
+        if ((category === 'male' && btn.innerText === 'Nike') || 
+            (category === 'female' && btn.innerText === 'New balance')) {
             filterCatalog(category, btn);
         }
     });
@@ -97,7 +97,9 @@ function renderGrid(containerId, filterType = 'all') {
             <div class="product-card fade-in" onclick="openProduct(${p.id})">
                 <img src="${p.img}" class="product-img" alt="${p.name}">
                 <div class="product-info">
-                    <span class="product-title">${p.name}</span>
+                    <div class="product-title-wrapper">
+                        <span class="product-title">${p.name}</span>
+                    </div>
                     <span class="product-price">${p.price.toLocaleString()} ₽</span>
                 </div>
             </div>
@@ -107,14 +109,15 @@ function renderGrid(containerId, filterType = 'all') {
 }
 
 function filterCatalog(category, btnElement) {
-    navigate('catalog'); // Перекидывает в каталог
+    navigate('catalog');
     document.querySelectorAll('.catalog-filters .filter-btn').forEach(btn => {
         btn.classList.remove('active');
     });
-    btnElement.classList.add('active');
+    // Проверяем, передан ли элемент кнопки
+    if (btnElement && btnElement.classList) {
+        btnElement.classList.add('active');
+    }
     renderGrid('catalog-products', category);
-    
-
 }
 
 // АВТО-ОБНОВЛЕНИЕ НОВИНОК (Каждые 5 секунд)
@@ -123,19 +126,16 @@ function rotateNewArrivals() {
     const container = document.getElementById('new-arrivals-products');
     if (!container) return;
 
-    const newItems = products.filter(p => p.isNew);
+    const newItems = products.filter(p => p.isNew || p.isHit);
     if (newItems.length === 0) return;
 
-    // Выбираем 4 товара для показа со смещением
     let itemsToShow = [];
     for(let i = 0; i < 4; i++) {
         itemsToShow.push(newItems[(newArrivalsOffset + i) % newItems.length]);
     }
 
-    // Плавно скрываем
     container.style.opacity = 0;
     
-    // Меняем товары и плавно показываем
     setTimeout(() => {
         container.innerHTML = '';
         itemsToShow.forEach(p => {
@@ -143,21 +143,23 @@ function rotateNewArrivals() {
                 <div class="product-card" onclick="openProduct(${p.id})">
                     <img src="${p.img}" class="product-img" alt="${p.name}">
                     <div class="product-info">
-                        <span class="product-title">${p.name}</span>
+                        <div class="product-title-wrapper">
+                            <span class="product-title">${p.name}</span>
+                        </div>
                         <span class="product-price">${p.price.toLocaleString()} ₽</span>
                     </div>
                 </div>
             `;
         });
         container.style.opacity = 1;
-        newArrivalsOffset = (newArrivalsOffset + 1) % newItems.length; // Смещаем для следующего показа
+        newArrivalsOffset = (newArrivalsOffset + 1) % newItems.length;
     }, 500);
 }
 
 // Товар и Корзина
 function openProduct(id) {
     const p = products.find(item => item.id === id);
-    currentSelectedSize = 'M'; 
+    currentSelectedSize = '40'; 
     
     document.getElementById('product-view-container').innerHTML = `
         <img src="${p.img}" class="product-view-img" alt="${p.name}">
@@ -237,7 +239,6 @@ function saveCart() {
 function renderCart() {
     const count = cart.reduce((sum, item) => sum + item.quantity, 0);
     
-    // Обновляем счетчики везде, где они есть
     const desktopCounter = document.getElementById('cart-count');
     const mobileCounter = document.getElementById('cart-count-mobile');
     if (desktopCounter) desktopCounter.innerText = count;
@@ -284,9 +285,8 @@ document.addEventListener('DOMContentLoaded', () => {
     renderGrid('catalog-products', 'all');
     renderCart();
     
-    // Запускаем первую отрисовку новинок, а затем ставим таймер
     rotateNewArrivals();
-    setInterval(rotateNewArrivals, 5000); // Меняется каждые 5 секунд
+    setInterval(rotateNewArrivals, 5000);
     
     observeElements();
 });
@@ -302,7 +302,6 @@ function scrollBrands(direction) {
 
     const firstItem = container.firstElementChild;
     const lastItem = container.lastElementChild;
-    // Считаем ширину кнопки + отступ 15px (gap)
     const itemWidth = firstItem.offsetWidth + 15; 
 
     if (direction === 'right') {
@@ -321,7 +320,6 @@ function scrollBrands(direction) {
         container.style.transition = 'none';
         container.style.transform = `translateX(-${itemWidth}px)`;
 
-        // Принудительно заставляем браузер применить смещение до включения анимации
         void container.offsetWidth;
 
         container.style.transition = 'transform 0.3s ease-in-out';
